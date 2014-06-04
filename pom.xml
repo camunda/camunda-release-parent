@@ -21,7 +21,6 @@
 
   <description>
     This pom defines the required plugins and profiles to allow a camunda release build.
-    It Wether it is a community project
     Inherit this pom when you want to release your project into the camunda nexus and/or maven central.
   </description>
 
