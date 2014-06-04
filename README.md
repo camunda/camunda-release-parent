@@ -33,7 +33,7 @@ Release
 
 Prerequisite:  
 
-  add the following to the profiles and servers section of your local settings.xml file. This allows the signing of your artifacts during the release. <strong>Mandatory for maven central</strong>.
+  Add the following to the profiles and servers section of your local settings.xml file. This allows the signing of your artifacts during the release. <strong>Mandatory for maven central</strong>.
   
     <settings>
       ...
@@ -67,8 +67,6 @@ Prerequisite:
         
       </profiles>
     </settings>
-    
-  add 
 
 To release your own project use the following command
 
