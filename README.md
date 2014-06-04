@@ -103,7 +103,7 @@ You can override some default behaviours through the usage of the command line p
     <td>serverId</td><td>Points to the corresponding entry in your settings.xml like <server><id>yourServerId</id></server> to specify your login credentials.<br/>Default is <strong>central</strong> for maven central.</td>
   </tr>
   <tr>
-    <td>nexusUrl</td><td>The plain url which points to your nexus installation.<strong>Must be a Nexus Enterprise Edition</strong><br/>Default is <strong>https://oss.sonatype.org</strong> aka maven central.</td>
+    <td>nexusUrl</td><td>The plain url which points to your nexus installation.<br/><strong>Must be a Nexus Enterprise Edition</strong><br/>Default is <strong>https://oss.sonatype.org</strong> aka maven central.</td>
   </tr>
 </table>
 
