@@ -111,3 +111,14 @@ You can override some default behaviours through the usage of the command line p
 
 Testing
 -------
+
+You can test your release steps by using the following maven release command.
+
+    mvn \
+    release:prepare release:perform \
+    -B -Dresume=false -Dtag=1.0.0 -DreleaseVersion=1.0.0 -DdevelopmentVersion=1.1.0-SNAPSHOT \
+    -Darguments="--settings=/Users/hawky4s/.m2/settings.xml -Dskip.central.release=true -Dnexus.release.repository=http//localhost:49081/content/repositories/camunda-bpm-test" \
+    --settings=/Users/hawky4s/.m2/settings.xml \
+    -DpushChanges=false -DremoteTagging=false -DlocalCheckout=true
+    
+This will do a release but will not push anything to the involved git repositories and will not deploy to maven central. Instead it will deploy to a local nexus repository. (Hint: I use a simple nexus docker image to do so.)
