@@ -13,7 +13,7 @@ Inherit the camunda-release-parent pom inside your project like so
     <parent>
       <groupId>org.camunda</groupId>
       <artifactId>camunda-release-parent</artifactId>
-      <version>${latestVersion}</version>
+      <version>${LATEST_VERSION}</version>
       <!-- do not remove empty tag - http://jira.codehaus.org/browse/MNG-4687 -->
      <relativePath />
     </parent>  
