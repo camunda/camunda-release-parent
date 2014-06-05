@@ -115,7 +115,7 @@ You can test your release steps by using the following maven release command.
     mvn \
     release:prepare release:perform \
     -B -Dresume=false -Dtag=1.0.0 -DreleaseVersion=1.0.0 -DdevelopmentVersion=1.1.0-SNAPSHOT \
-    -Darguments="--settings=/Users/hawky4s/.m2/settings.xml -Dskip.central.release=true -Dnexus.release.repository=http//localhost:49081/content/repositories/camunda-bpm-test" \
+    -Darguments="--settings=/Users/hawky4s/.m2/settings.xml -Dskip.central.release=true -Dnexus.release.repository=http://localhost:49081/content/repositories/camunda-bpm-test" \
     --settings=/Users/hawky4s/.m2/settings.xml \
     -DpushChanges=false -DremoteTagging=false -DlocalCheckout=true
     
