@@ -32,7 +32,7 @@
     <skip.central.release>false</skip.central.release>
     <nexus.snapshot.repository>https://app.camunda.com/nexus/content/repositories/camunda-bpm-snapshots</nexus.snapshot.repository>
     <nexus.release.repository>https://app.camunda.com/nexus/content/repositories/camunda-bpm</nexus.release.repository>
-    <skip.deployAtEnd>true</skip.deployAtEnd>
+    <do.deployAtEnd>false</do.deployAtEnd>
   </properties>
 
   <build>
@@ -165,7 +165,7 @@
                 </goals>
                 <configuration>
                   <!-- change this, when https://jira.codehaus.org/browse/MDEPLOY-176 is fixed -->
-                  <deployAtEnd>${skip.deployAtEnd}</deployAtEnd>
+                  <deployAtEnd>${do.deployAtEnd}</deployAtEnd>
                   <skip>${skip.camunda.release}</skip>
                 </configuration>
               </execution>
