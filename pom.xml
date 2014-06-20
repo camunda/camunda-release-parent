@@ -24,6 +24,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Avoid the message "[WARNING] Using platform encoding (UTF-8 actually) ... also for the failsafe plugin -->
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- we use java 1.6 for our projects -->
     <version.java>1.6</version.java>
