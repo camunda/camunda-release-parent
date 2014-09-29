@@ -37,16 +37,24 @@
     <do.deployAtEnd>false</do.deployAtEnd>
 
     <plugin.version.nexus-staging>1.6.4</plugin.version.nexus-staging>
+    <plugin.version.clean>2.6</plugin.version.clean>
     <plugin.version.source>2.3</plugin.version.source>
+    <plugin.version.jar>2.5</plugin.version.jar>
     <plugin.version.gpg>1.4</plugin.version.gpg>
     <plugin.version.release>2.5.1</plugin.version.release>
     <plugin.version.deploy>2.3</plugin.version.deploy>
     <plugin.version.javadoc>2.9.1</plugin.version.javadoc>
+    <plugin.version.maven-bundle>2.3.7</plugin.version.maven-bundle>
   </properties>
 
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${plugin.version.clean}</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -55,6 +63,11 @@
             <source>${version.java}</source>
             <target>${version.java}</target>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${plugin.version.jar}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -85,6 +98,12 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${plugin.version.gpg}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>${plugin.version.maven-bundle}</version>
+          <extensions>true</extensions>
         </plugin>
       </plugins>
     </pluginManagement>
