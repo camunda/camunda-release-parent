@@ -13,7 +13,7 @@
 
   <groupId>org.camunda</groupId>
   <artifactId>camunda-release-parent</artifactId>
-  <version>2.5</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>camunda - Release Parent Pom</name>
 
@@ -328,7 +328,7 @@
     <url>https://github.com/camunda/camunda-release-parent</url>
     <connection>scm:git:git@github.com:camunda/camunda-release-parent.git</connection>
     <developerConnection>scm:git:git@github.com:camunda/camunda-release-parent.git</developerConnection>
-    <tag>2.5</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
