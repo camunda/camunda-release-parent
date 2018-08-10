@@ -27,8 +27,8 @@
     <!-- Avoid the message "[WARNING] Using platform encoding (UTF-8 actually) ... also for the failsafe plugin -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <!-- we use java 1.6 for our projects -->
-    <version.java>1.6</version.java>
+    <!-- we use java 1.7 for our projects -->
+    <version.java>1.7</version.java>
     <version.ejb>3.1</version.ejb>
 
     <skip.camunda.release>false</skip.camunda.release>
