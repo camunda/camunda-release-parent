@@ -2,15 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- Required for OSS maven repository deployment -->
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>9</version>
-    <!-- do not remove empty tag - http://jira.codehaus.org/browse/MNG-4687 -->
-    <relativePath />
-  </parent>
-
   <groupId>org.camunda</groupId>
   <artifactId>camunda-release-parent</artifactId>
   <version>3.1.0-SNAPSHOT</version>
@@ -33,9 +24,14 @@
 
     <skip.camunda.release>false</skip.camunda.release>
     <skip.central.release>false</skip.central.release>
+    <nexus.snapshot.repository.id>camunda-nexus</nexus.snapshot.repository.id>
     <nexus.snapshot.repository>https://app.camunda.com/nexus/content/repositories/camunda-bpm-snapshots</nexus.snapshot.repository>
+    <nexus.release.repository.id>camunda-nexus</nexus.release.repository.id>
     <nexus.release.repository>https://app.camunda.com/nexus/content/repositories/camunda-bpm</nexus.release.repository>
-    <do.deployAtEnd>false</do.deployAtEnd>
+
+    <nexus.staging.deploy.id>camunda-nexus</nexus.staging.deploy.id>
+    <nexus.staging.deploy.url>https://app.camunda.com/nexus</nexus.staging.deploy.url>
+    <gpg.useagent>true</gpg.useagent>
 
     <plugin.version.clean>2.6</plugin.version.clean>
     <plugin.version.source>2.3</plugin.version.source>
@@ -51,8 +47,8 @@
     <plugin.version.ear>2.9.1</plugin.version.ear>
     <plugin.version.rar>2.4</plugin.version.rar>
     <plugin.version.gpg>1.4</plugin.version.gpg>
-    <plugin.version.release>2.5.1</plugin.version.release>
-    <plugin.version.nexus-staging>1.6.4</plugin.version.nexus-staging>
+    <plugin.version.release>2.5.3</plugin.version.release>
+    <plugin.version.nexus-staging>1.6.8</plugin.version.nexus-staging>
   </properties>
 
   <build>
@@ -151,11 +147,19 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
           <version>${plugin.version.release}</version>
+          <configuration>
+            <mavenExecutorId>forked-path</mavenExecutorId>
+            <useReleaseProfile>false</useReleaseProfile>
+            <arguments>${arguments} -Psonatype-oss-release</arguments>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>${plugin.version.deploy}</version>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
@@ -185,20 +189,88 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>default-deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+            <configuration>
+              <detectBuildFailures>true</detectBuildFailures>
+              <serverId>${nexus.staging.deploy.id}</serverId>
+              <nexusUrl>${nexus.staging.deploy.url}</nexusUrl>
+              <skipStaging>true</skipStaging>
+              <skipNexusStagingDeployMojo>${skip.camunda.release}</skipNexusStagingDeployMojo>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 
   <distributionManagement>
     <snapshotRepository>
-      <id>camunda-nexus</id>
+      <id>${nexus.snapshot.repository.id}</id>
       <url>${nexus.snapshot.repository}</url>
     </snapshotRepository>
     <repository>
-      <id>camunda-nexus</id>
+      <id>${nexus.release.repository.id}</id>
       <url>${nexus.release.repository}</url>
     </repository>
   </distributionManagement>
 
   <profiles>
+    <profile>
+      <id>override-snapshot-repository</id>
+      <activation>
+        <property>
+          <name>env.NEXUS_SNAPSHOT_REPOSITORY</name>
+        </property>
+      </activation>
+      <properties>
+        <nexus.snapshot.repository>${env.NEXUS_SNAPSHOT_REPOSITORY}</nexus.snapshot.repository>
+      </properties>
+    </profile>
+    <profile>
+      <id>override-snapshot-repository-id</id>
+      <activation>
+        <property>
+          <name>env.NEXUS_SNAPSHOT_REPOSITORY_ID</name>
+        </property>
+      </activation>
+      <properties>
+        <nexus.snapshot.repository.id>${env.NEXUS_SNAPSHOT_REPOSITORY_ID}</nexus.snapshot.repository.id>
+      </properties>
+    </profile>
+    <profile>
+      <id>override-release-repository</id>
+      <activation>
+        <property>
+          <name>env.NEXUS_RELEASE_REPOSITORY</name>
+        </property>
+      </activation>
+      <properties>
+        <nexus.release.repository>${env.NEXUS_RELEASE_REPOSITORY}</nexus.release.repository>
+      </properties>
+    </profile>
+    <profile>
+      <id>override-release-repository-id</id>
+      <activation>
+        <property>
+          <name>env.NEXUS_RELEASE_REPOSITORY_ID</name>
+        </property>
+      </activation>
+      <properties>
+        <nexus.release.repository.id>${env.NEXUS_RELEASE_REPOSITORY_ID}</nexus.release.repository.id>
+      </properties>
+    </profile>
     <!-- activate this profile to release to maven central -->
     <profile>
       <id>sonatype-oss-release</id>
@@ -259,28 +331,9 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>${plugin.version.deploy}</version>
-            <executions>
-              <execution>
-                <id>default-deploy</id>
-                <phase>deploy</phase>
-                <goals>
-                  <goal>deploy</goal>
-                </goals>
-                <configuration>
-                  <!-- change this, when https://jira.codehaus.org/browse/MDEPLOY-176 is fixed -->
-                  <deployAtEnd>${do.deployAtEnd}</deployAtEnd>
-                  <skip>${skip.camunda.release}</skip>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${plugin.version.nexus-staging}</version>
+            <extensions>true</extensions>
             <executions>
               <execution>
                 <id>central-deploy</id>
@@ -289,8 +342,12 @@
                   <goal>deploy</goal>
                 </goals>
                 <configuration>
+                  <detectBuildFailures>true</detectBuildFailures>
+                  <keepStagingRepositoryOnFailure>true</keepStagingRepositoryOnFailure>
+                  <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
                   <serverId>central</serverId>
                   <nexusUrl>https://oss.sonatype.org</nexusUrl>
+                  <skipStaging>false</skipStaging>
                   <skipNexusStagingDeployMojo>${skip.central.release}</skipNexusStagingDeployMojo>
                 </configuration>
               </execution>
@@ -309,7 +366,7 @@
   </licenses>
 
   <organization>
-    <name>camunda services GmbH</name>
+    <name>Camunda Services GmbH</name>
     <url>http://www.camunda.com</url>
   </organization>
 
