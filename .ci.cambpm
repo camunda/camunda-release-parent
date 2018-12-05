@@ -1,1 +1,1 @@
-buildMavenAndDeployToMavenCentral([jdk:6])
+buildMavenAndDeployToMavenCentral([jdk:7])
