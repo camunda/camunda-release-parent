@@ -39,6 +39,7 @@
     <plugin.version.jar>2.5</plugin.version.jar>
     <plugin.version.javadoc>2.9.1</plugin.version.javadoc>
     <plugin.version.maven-bundle>2.5.3</plugin.version.maven-bundle>
+    <plugin.version.license>3.0</plugin.version.license>
 
     <plugin.version.deploy>2.8.2</plugin.version.deploy>
     <plugin.version.assembly>2.4.1</plugin.version.assembly>
@@ -186,6 +187,69 @@
           <artifactId>maven-bundle-plugin</artifactId>
           <version>${plugin.version.maven-bundle}</version>
           <extensions>true</extensions>
+        </plugin>
+        <!-- license plugin -->
+        <plugin>
+          <groupId>com.mycila</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>${plugin.version.license}</version>
+          <configuration>
+            <inlineHeader>
+Copyright © ${license.git.copyrightYears} ${owner} (${email})
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+            </inlineHeader>
+            <skipExistingHeaders>true</skipExistingHeaders>
+            <properties>
+              <owner>camunda services GmbH and various authors</owner>
+              <email>info@camunda.com</email>
+            </properties>
+            <includes>
+              <include>**/*.java</include>
+              <include>**/main/**/engine/**/*.sql</include>
+              <include>**/main/**/engine/**/*.xml</include>
+              <include>**/BpmPlatform.xsd</include>
+              <include>**/ProcessApplication.xsd</include>
+            </includes>
+            <excludes>
+              <exclude>**/org/camunda/bpm/engine/impl/util/json/*.java</exclude>
+              <exclude>**/org/camunda/bpm/engine/impl/calendar/CronExpression.java</exclude>
+              <exclude>**/org/camunda/bpm/engine/impl/juel/*.java</exclude>
+              <exclude>**/org/camunda/bpm/engine/impl/javax/el/*.java</exclude>
+              <exclude>**/org/camunda/bpm/engine/spring/components/*.java</exclude>
+              <exclude>**/org/camunda/bpm/engine/spring/annotations/*.java</exclude>
+            </excludes>
+            <mapping>
+              <java>SLASHSTAR_STYLE</java>
+            </mapping>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>com.mycila</groupId>
+              <artifactId>license-maven-plugin-git</artifactId>
+              <!-- make sure you use the same version as license-maven-plugin -->
+              <version>${plugin.version.license}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <id>add-license-header</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>format</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
