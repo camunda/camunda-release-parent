@@ -4,7 +4,7 @@
 
   <groupId>org.camunda</groupId>
   <artifactId>camunda-release-parent</artifactId>
-  <version>3.4</version>
+  <version>3.5-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>camunda - Release Parent Pom</name>
 
@@ -439,7 +439,7 @@ limitations under the License.
     <url>https://github.com/camunda/camunda-release-parent</url>
     <connection>scm:git:git@github.com:camunda/camunda-release-parent.git</connection>
     <developerConnection>scm:git:git@github.com:camunda/camunda-release-parent.git</developerConnection>
-    <tag>3.4</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
