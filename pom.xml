@@ -226,6 +226,7 @@ limitations under the License.</license.inlineHeader>
               <exclude>**/org/camunda/bpm/engine/spring/annotations/*.java</exclude>
               <exclude>**/org/camunda/bpm/engine/impl/digest/_apacheCommonsCodec/*.java</exclude>
               <exclude>**/org/camunda/bpm/licensecheck/_apacheCommonsCodec/*.java</exclude>
+              <exclude>**/node_modules/**</exclude>
             </excludes>
             <mapping>
               <java>SLASHSTAR_STYLE</java>
