@@ -33,6 +33,9 @@
     <nexus.staging.deploy.url>https://app.camunda.com/nexus</nexus.staging.deploy.url>
     <gpg.useagent>true</gpg.useagent>
 
+    <!-- this is the default timeout -->
+    <central.release.timeout>5</central.release.timeout>
+
     <plugin.version.clean>2.6</plugin.version.clean>
     <plugin.version.source>2.3</plugin.version.source>
     <plugin.version.compiler>3.1</plugin.version.compiler>
@@ -350,6 +353,7 @@
                   <nexusUrl>https://oss.sonatype.org</nexusUrl>
                   <skipStaging>false</skipStaging>
                   <skipNexusStagingDeployMojo>${skip.central.release}</skipNexusStagingDeployMojo>
+                  <stagingProgressTimeoutMinutes>${central.release.timeout}</stagingProgressTimeoutMinutes>
                 </configuration>
               </execution>
             </executions>
