@@ -350,6 +350,7 @@
                   <nexusUrl>https://oss.sonatype.org</nexusUrl>
                   <skipStaging>false</skipStaging>
                   <skipNexusStagingDeployMojo>${skip.central.release}</skipNexusStagingDeployMojo>
+                  <stagingProgressTimeoutMinutes>10</stagingProgressTimeoutMinutes>
                 </configuration>
               </execution>
             </executions>
