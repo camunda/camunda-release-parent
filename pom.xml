@@ -31,6 +31,7 @@
 
     <nexus.staging.deploy.id>camunda-nexus</nexus.staging.deploy.id>
     <nexus.staging.deploy.url>https://app.camunda.com/nexus</nexus.staging.deploy.url>
+    <nexus.sonatype.url>https://oss.sonatype.org</nexus.sonatype.url>
     <gpg.useagent>true</gpg.useagent>
 
     <plugin.version.clean>2.6</plugin.version.clean>
@@ -347,7 +348,7 @@
                   <keepStagingRepositoryOnFailure>true</keepStagingRepositoryOnFailure>
                   <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
                   <serverId>central</serverId>
-                  <nexusUrl>https://oss.sonatype.org</nexusUrl>
+                  <nexusUrl>${nexus.sonatype.url}</nexusUrl>
                   <skipStaging>false</skipStaging>
                   <skipNexusStagingDeployMojo>${skip.central.release}</skipNexusStagingDeployMojo>
                 </configuration>
