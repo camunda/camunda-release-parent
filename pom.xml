@@ -37,7 +37,7 @@
     <plugin.version.clean>2.6</plugin.version.clean>
     <plugin.version.source>3.2.1</plugin.version.source>
     <plugin.version.compiler>3.1</plugin.version.compiler>
-    <plugin.version.jar>2.5</plugin.version.jar>
+    <plugin.version.jar>3.2.0</plugin.version.jar>
     <plugin.version.javadoc>2.9.1</plugin.version.javadoc>
     <plugin.version.maven-bundle>5.1.2</plugin.version.maven-bundle>
 
