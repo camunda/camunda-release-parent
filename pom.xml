@@ -48,7 +48,7 @@
     <plugin.version.war>2.4</plugin.version.war>
     <plugin.version.ear>2.9.1</plugin.version.ear>
     <plugin.version.rar>2.4</plugin.version.rar>
-    <plugin.version.gpg>1.4</plugin.version.gpg>
+    <plugin.version.gpg>3.0.1</plugin.version.gpg>
     <plugin.version.release>2.5.3</plugin.version.release>
     <plugin.version.nexus-staging>1.6.8</plugin.version.nexus-staging>
   </properties>
