@@ -34,21 +34,21 @@
     <nexus.sonatype.url>https://oss.sonatype.org</nexus.sonatype.url>
     <gpg.useagent>true</gpg.useagent>
 
-    <plugin.version.clean>2.6</plugin.version.clean>
-    <plugin.version.source>2.3</plugin.version.source>
-    <plugin.version.compiler>3.1</plugin.version.compiler>
-    <plugin.version.jar>2.5</plugin.version.jar>
+    <plugin.version.clean>3.1.0</plugin.version.clean>
+    <plugin.version.source>3.2.1</plugin.version.source>
+    <plugin.version.compiler>3.8.1</plugin.version.compiler>
+    <plugin.version.jar>3.2.0</plugin.version.jar>
     <plugin.version.javadoc>2.9.1</plugin.version.javadoc>
-    <plugin.version.maven-bundle>2.5.3</plugin.version.maven-bundle>
+    <plugin.version.maven-bundle>5.1.2</plugin.version.maven-bundle>
 
 
     <plugin.version.deploy>2.8.2</plugin.version.deploy>
-    <plugin.version.assembly>2.4.1</plugin.version.assembly>
-    <plugin.version.ejb>2.4</plugin.version.ejb>
-    <plugin.version.war>2.4</plugin.version.war>
-    <plugin.version.ear>2.9.1</plugin.version.ear>
+    <plugin.version.assembly>3.3.0</plugin.version.assembly>
+    <plugin.version.ejb>3.1.0</plugin.version.ejb>
+    <plugin.version.war>3.3.2</plugin.version.war>
+    <plugin.version.ear>3.2.0</plugin.version.ear>
     <plugin.version.rar>2.4</plugin.version.rar>
-    <plugin.version.gpg>1.4</plugin.version.gpg>
+    <plugin.version.gpg>3.0.1</plugin.version.gpg>
     <plugin.version.release>2.5.3</plugin.version.release>
     <plugin.version.nexus-staging>1.6.8</plugin.version.nexus-staging>
   </properties>
