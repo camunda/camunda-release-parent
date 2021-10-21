@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.camunda/camunda-release-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.camunda/camunda-release-parent)
+
 camunda-release-parent
 ======================
 
