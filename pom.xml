@@ -4,7 +4,7 @@
 
   <groupId>org.camunda</groupId>
   <artifactId>camunda-release-parent</artifactId>
-  <version>3.7</version>
+  <version>3.7.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>camunda - Release Parent Pom</name>
 
@@ -25,12 +25,12 @@
     <skip.camunda.release>false</skip.camunda.release>
     <skip.central.release>false</skip.central.release>
     <nexus.snapshot.repository.id>camunda-nexus</nexus.snapshot.repository.id>
-    <nexus.snapshot.repository>https://app.camunda.com/nexus/content/repositories/camunda-bpm-snapshots</nexus.snapshot.repository>
+    <nexus.snapshot.repository>https://camunda.jfrog.io/artifactory/camunda-bpm-snapshots</nexus.snapshot.repository>
     <nexus.release.repository.id>camunda-nexus</nexus.release.repository.id>
-    <nexus.release.repository>https://app.camunda.com/nexus/content/repositories/camunda-bpm</nexus.release.repository>
+    <nexus.release.repository>https://camunda.jfrog.io/artifactory/camunda-bpm</nexus.release.repository>
 
     <nexus.staging.deploy.id>camunda-nexus</nexus.staging.deploy.id>
-    <nexus.staging.deploy.url>https://app.camunda.com/nexus</nexus.staging.deploy.url>
+    <nexus.staging.deploy.url>https://camunda.jfrog.io/artifactory</nexus.staging.deploy.url>
     <gpg.useagent>true</gpg.useagent>
 
     <plugin.version.clean>2.6</plugin.version.clean>
@@ -386,7 +386,7 @@
     <url>https://github.com/camunda/camunda-release-parent</url>
     <connection>scm:git:git@github.com:camunda/camunda-release-parent.git</connection>
     <developerConnection>scm:git:git@github.com:camunda/camunda-release-parent.git</developerConnection>
-    <tag>3.7</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
