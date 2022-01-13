@@ -38,7 +38,7 @@
     <plugin.version.source>3.2.1</plugin.version.source>
     <plugin.version.compiler>3.8.1</plugin.version.compiler>
     <!-- for compatibility reasons pinned to 2.6, since 3.0.0 introduced a change incompatible to this build script -->
-    <plugin.version.jar>2.6</plugin.version.jar>
+    <plugin.version.jar>3.2.2</plugin.version.jar>
     <plugin.version.javadoc>3.3.1</plugin.version.javadoc>
     <plugin.version.maven-bundle>5.1.2</plugin.version.maven-bundle>
 
