@@ -90,10 +90,10 @@ You can override some default behaviours through the usage of the command line p
     <th>Property</th><th>Description</th>
   </tr>
   <tr>
-    <td>nexus.snapshot.repository</td><td>Specify the url to your snapshot repository.<br/>Default is <strong>https://camunda.jfrog.io/artifactory/camunda-bpm-snapshots</strong>.</td>
+    <td>nexus.snapshot.repository</td><td>Specify the url to your snapshot repository.<br/>Default is <strong>https://artifacts.camunda.com/artifactory/camunda-bpm-snapshots</strong>.</td>
   </tr>
   <tr>
-    <td>nexus.release.repository</td><td>Specify the url to your release repository.<br/>Default is <strong>https://camunda.jfrog.io/artifactory/camunda-bpm</strong>.</td>
+    <td>nexus.release.repository</td><td>Specify the url to your release repository.<br/>Default is <strong>https://artifacts.camunda.com/artifactory/camunda-bpm</strong>.</td>
   </tr>
   <tr>
     <td>skip.nexus.release</td><td>When setting the value to true, skip the deployment to the release repository specified in <distributionManagement>.<br/>Default is <strong>false</strong>.</td>
