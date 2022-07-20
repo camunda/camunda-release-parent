@@ -43,7 +43,7 @@
     <plugin.version.maven-bundle>5.1.2</plugin.version.maven-bundle>
 
 
-    <plugin.version.deploy>2.8.2</plugin.version.deploy>
+    <plugin.version.deploy>3.0.0</plugin.version.deploy>
     <plugin.version.assembly>3.3.0</plugin.version.assembly>
     <plugin.version.ejb>3.1.0</plugin.version.ejb>
     <plugin.version.war>3.3.2</plugin.version.war>
