@@ -34,7 +34,7 @@
     
     <!-- Sonatype Central  -->
     <skip.central.release>false</skip.central.release>
-    <nexus.sonatype.url>https://oss.sonatype.org</nexus.sonatype.url> <!-- Deprecated: used by sonatype-oss-release deprecated profile, to be removed in future versions-->
+    <nexus.sonatype.url>https://ossrh-staging-api.central.sonatype.com</nexus.sonatype.url> <!-- Deprecated: used by sonatype-oss-release deprecated profile, to be removed in future versions-->
 
     <!-- Maven GPG plugin -->
     <gpg.useagent>true</gpg.useagent>
