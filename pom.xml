@@ -163,7 +163,7 @@
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
             <useReleaseProfile>false</useReleaseProfile>
-            <arguments>${arguments} -Psonatype-oss-release</arguments>
+            <arguments>${arguments} -Pcentral-sonatype-publish</arguments>
           </configuration>
         </plugin>
         <plugin>
@@ -300,17 +300,6 @@
         <deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
       </properties>      
       <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-release-plugin</artifactId>
-              <configuration>
-                <arguments>${arguments}</arguments>
-              </configuration>
-              </plugin>
-          </plugins>
-        </pluginManagement>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -397,6 +386,17 @@
       -->
       <id>sonatype-oss-release</id>
       <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-release-plugin</artifactId>
+              <configuration>
+                <arguments>${arguments}</arguments>
+              </configuration>
+              </plugin>
+          </plugins>
+        </pluginManagement>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
