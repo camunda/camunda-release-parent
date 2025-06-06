@@ -475,6 +475,33 @@
               </execution>
             </executions>
           </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>warn-deprecated-profile</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <evaluateBeanshell>
+                      <condition>false</condition>
+                      <message>
+⚠️ Deprecated Profile Notice: The sonatype-oss-release profile is deprecated and will be removed in a future release.
+
+A new profile, central-sonatype-publish, is available for use with the new Sonatype Central Portal publishing interface.
+Please refer to the documentation for migration guidance:
+https://github.com/camunda/camunda-release-parent/tree/master?tab=readme-ov-file#%EF%B8%8F-migration-to-sonatype-central-portal
+                      </message>
+                    </evaluateBeanshell>
+                  </rules>
+                  <fail>false</fail>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
       </build>
     </profile>
