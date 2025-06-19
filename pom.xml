@@ -9,31 +9,37 @@
   <name>camunda - Release Parent Pom</name>
 
   <description>
-    This pom defines the required plugins and profiles to allow a camunda release build.
-    Inherit this pom when you want to release your project into the camunda nexus and/or maven central.
+    This POM defines the plugins and profiles needed for Camunda release builds.
+    Inherit this POM when you want to release your project to the Camunda Nexus and/or Maven Central.
   </description>
 
   <properties>
+    <!-- Encoding -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Avoid the message "[WARNING] Using platform encoding (UTF-8 actually) ... also for the failsafe plugin -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <!-- we use java 1.7 for our projects -->
-    <version.java>1.7</version.java>
-    <version.ejb>3.1</version.ejb>
+    <!-- Java version -->
+    <version.java>1.7</version.java> <!-- Legacy -->
+    <version.ejb>3.1</version.ejb> <!-- Legacy -->
 
+    <!-- Camunda (Nexus) Artifactory -->
     <skip.camunda.release>false</skip.camunda.release>
-    <skip.central.release>false</skip.central.release>
     <nexus.snapshot.repository.id>camunda-nexus</nexus.snapshot.repository.id>
     <nexus.snapshot.repository>https://artifacts.camunda.com/artifactory/camunda-bpm-snapshots</nexus.snapshot.repository>
     <nexus.release.repository.id>camunda-nexus</nexus.release.repository.id>
     <nexus.release.repository>https://artifacts.camunda.com/artifactory/camunda-bpm</nexus.release.repository>
-
     <nexus.staging.deploy.id>camunda-nexus</nexus.staging.deploy.id>
     <nexus.staging.deploy.url>https://artifacts.camunda.com/artifactory</nexus.staging.deploy.url>
-    <nexus.sonatype.url>https://oss.sonatype.org</nexus.sonatype.url>
+    
+    <!-- Sonatype Central  -->
+    <skip.central.release>false</skip.central.release>
+    <nexus.sonatype.url>https://oss.sonatype.org</nexus.sonatype.url> <!-- Deprecated: used by sonatype-oss-release deprecated profile, to be removed in future versions-->
+
+    <!-- Maven GPG plugin -->
     <gpg.useagent>true</gpg.useagent>
 
+    <!-- Plugin versions -->
     <plugin.version.clean>3.1.0</plugin.version.clean>
     <plugin.version.source>3.2.1</plugin.version.source>
     <plugin.version.compiler>3.8.1</plugin.version.compiler>
@@ -41,8 +47,6 @@
     <plugin.version.jar>2.6</plugin.version.jar>
     <plugin.version.javadoc>3.3.1</plugin.version.javadoc>
     <plugin.version.maven-bundle>5.1.2</plugin.version.maven-bundle>
-
-
     <plugin.version.deploy>2.8.2</plugin.version.deploy>
     <plugin.version.assembly>3.3.0</plugin.version.assembly>
     <plugin.version.ejb>3.1.0</plugin.version.ejb>
@@ -52,6 +56,7 @@
     <plugin.version.gpg>3.0.1</plugin.version.gpg>
     <plugin.version.release>2.5.3</plugin.version.release>
     <plugin.version.nexus-staging>1.6.13</plugin.version.nexus-staging>
+    <plugin.version.central-publishing>0.7.0</plugin.version.central-publishing>
   </properties>
 
   <build>
@@ -70,6 +75,11 @@
             <source>${version.java}</source>
             <target>${version.java}</target>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.4.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -163,6 +173,11 @@
           <configuration>
             <skip>true</skip>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>${plugin.version.central-publishing}</version>
         </plugin>
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
@@ -274,8 +289,112 @@
         <nexus.release.repository.id>${env.NEXUS_RELEASE_REPOSITORY_ID}</nexus.release.repository.id>
       </properties>
     </profile>
-    <!-- activate this profile to release to maven central -->
+      <!--
+      This profile configures environment for the publication using the central publishing plugin
+      into Maven Central Publisher Portal via https://central.sonatype.org/publish/publish-portal-maven/
+      -->
     <profile>
+      <id>central-sonatype-publish</id>
+      <properties>
+        <serverId>central</serverId>
+        <deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
+      </properties>      
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-release-plugin</artifactId>
+              <configuration>
+                <arguments>${arguments}</arguments>
+              </configuration>
+              </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${plugin.version.source}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>attach-test-sources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>test-jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${plugin.version.javadoc}</version>
+            <configuration>
+              <quiet>true</quiet>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${plugin.version.gpg}</version>
+            <configuration>
+              <passphrase>${gpg.passphrase}</passphrase>
+            </configuration>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>central-deploy</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>publish</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <autoPublish>false</autoPublish>
+              <deploymentName>${deploymentName}</deploymentName>
+              <failOnBuildFailure>true</failOnBuildFailure>
+              <publishingServerId>${serverId}</publishingServerId>
+              <skipPublishing>${skip.central.release}</skipPublishing>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <!--
+      This profile configures environment for the publication using the nexus staging plugin into
+      OSS Nexus repository.
+      -->
       <id>sonatype-oss-release</id>
       <build>
         <plugins>
@@ -352,6 +471,33 @@
                   <nexusUrl>${nexus.sonatype.url}</nexusUrl>
                   <skipStaging>false</skipStaging>
                   <skipNexusStagingDeployMojo>${skip.central.release}</skipNexusStagingDeployMojo>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>warn-deprecated-profile</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <evaluateBeanshell>
+                      <condition>false</condition>
+                      <message>
+⚠️ Deprecated Profile Notice: The sonatype-oss-release profile is deprecated and will be removed in a future release.
+
+A new profile, central-sonatype-publish, is available for use with the new Sonatype Central Portal publishing interface.
+Please refer to the documentation for migration guidance:
+https://github.com/camunda/camunda-release-parent/tree/master?tab=readme-ov-file#%EF%B8%8F-migration-to-sonatype-central-portal
+                      </message>
+                    </evaluateBeanshell>
+                  </rules>
+                  <fail>false</fail>
                 </configuration>
               </execution>
             </executions>
