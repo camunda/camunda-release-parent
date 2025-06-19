@@ -34,7 +34,7 @@
     
     <!-- Sonatype Central  -->
     <skip.central.release>false</skip.central.release>
-    <nexus.sonatype.url>https://oss.sonatype.org</nexus.sonatype.url> <!-- Deprecated: used by sonatype-oss-release deprecated profile, to be removed in future versions-->
+    <nexus.sonatype.url>https://ossrh-staging-api.central.sonatype.com</nexus.sonatype.url> <!-- Deprecated: used by sonatype-oss-release deprecated profile, to be removed in future versions-->
 
     <!-- Maven GPG plugin -->
     <gpg.useagent>true</gpg.useagent>
@@ -163,7 +163,7 @@
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
             <useReleaseProfile>false</useReleaseProfile>
-            <arguments>${arguments} -Psonatype-oss-release</arguments>
+            <arguments>${arguments} -Pcentral-sonatype-publish</arguments>
           </configuration>
         </plugin>
         <plugin>
@@ -300,17 +300,6 @@
         <deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
       </properties>      
       <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-release-plugin</artifactId>
-              <configuration>
-                <arguments>${arguments}</arguments>
-              </configuration>
-              </plugin>
-          </plugins>
-        </pluginManagement>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -397,6 +386,17 @@
       -->
       <id>sonatype-oss-release</id>
       <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-release-plugin</artifactId>
+              <configuration>
+                <arguments>${arguments}</arguments>
+              </configuration>
+              </plugin>
+          </plugins>
+        </pluginManagement>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -498,6 +498,87 @@ https://github.com/camunda/camunda-release-parent/tree/master?tab=readme-ov-file
                     </evaluateBeanshell>
                   </rules>
                   <fail>false</fail>
+                </configuration>
+              </execution>
+              <execution>
+                <id>fail-deprecated-profile-zeebe-no-ackn</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <evaluateBeanshell>
+                        <condition><![CDATA[
+                          !"${project.groupId}".startsWith("io.zeebe") ||
+                          "${sonatype-oss-release.acknowledge.deprecation}".equals("true")
+                          ]]>
+                        </condition>
+                        <message>
+❌ Deployment Blocked: Publishing under the io.zeebe namespace using the deprecated sonatype-oss-release profile is no longer supported.
+To deploy to Maven Central, please use the  profile, which supports the new Central Portal publishing interface.
+
+🛑 To bypass this check (not recommended), you may pass -Dsonatype-oss-release.acknowledge.deprecation=true.
+
+Please refer to the documentation for migration guidance and namespace-specific rollout details:
+https://github.com/camunda/camunda-release-parent/tree/master?tab=readme-ov-file#%EF%B8%8F-migration-to-sonatype-central-portal
+                        </message>
+                      </evaluateBeanshell>
+                    </rules>
+                  <fail>true</fail>
+                </configuration>
+              </execution>
+              <execution>
+                <id>fail-deprecated-profile-io-camunda-no-ackn</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <evaluateBeanshell>
+                        <condition><![CDATA[
+                          !"${project.groupId}".startsWith("io.camunda") ||
+                          "${sonatype-oss-release.acknowledge.deprecation}".equals("true")
+                          ]]>
+                        </condition>
+                        <message>
+❌ Deployment Blocked: Publishing under the io.camunda namespace using the deprecated sonatype-oss-release profile is no longer supported.
+To deploy to Maven Central, please use the  profile, which supports the new Central Portal publishing interface.
+
+🛑 To bypass this check (not recommended), you may pass -Dsonatype-oss-release.acknowledge.deprecation=true.
+
+Please refer to the documentation for migration guidance and namespace-specific rollout details:
+https://github.com/camunda/camunda-release-parent/tree/master?tab=readme-ov-file#%EF%B8%8F-migration-to-sonatype-central-portal
+                        </message>
+                      </evaluateBeanshell>
+                    </rules>
+                  <fail>true</fail>
+                </configuration>
+              </execution>
+              <execution>
+                <id>fail-deprecated-profile-org-camunda-no-ackn</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <evaluateBeanshell>
+                        <condition><![CDATA[
+                          !"${project.groupId}".startsWith("org.camunda") ||
+                          "${sonatype-oss-release.acknowledge.deprecation}".equals("true")
+                          ]]>
+                        </condition>
+                        <message>
+❌ Deployment Blocked: Publishing under the org.camunda namespace using the deprecated sonatype-oss-release profile is no longer supported.
+To deploy to Maven Central, please use the  profile, which supports the new Central Portal publishing interface.
+
+🛑 To bypass this check (not recommended), you may pass -Dsonatype-oss-release.acknowledge.deprecation=true.
+
+Please refer to the documentation for migration guidance and namespace-specific rollout details:
+https://github.com/camunda/camunda-release-parent/tree/master?tab=readme-ov-file#%EF%B8%8F-migration-to-sonatype-central-portal
+                        </message>
+                      </evaluateBeanshell>
+                    </rules>
+                  <fail>true</fail>
                 </configuration>
               </execution>
             </executions>
