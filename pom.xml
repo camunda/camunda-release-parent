@@ -20,7 +20,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- Java version -->
-    <version.java>1.7</version.java> <!-- Legacy -->
+    <version.java>1.11</version.java> <!-- Legacy -->
     <version.ejb>3.1</version.ejb> <!-- Legacy -->
 
     <!-- Camunda (Nexus) Artifactory -->
