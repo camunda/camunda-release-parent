@@ -1,7 +1,7 @@
 @Library("camunda-ci") _
 buildMavenAndDeployToMavenCentral([
   jdk:8,
-  mvn: 3.8,
+  mvn: 3.5,
   mvnReleaseProfiles:'sonatype-oss-release',
   publishZipArtifactToCamundaOrg:true
 ])
