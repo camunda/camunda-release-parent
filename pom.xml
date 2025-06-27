@@ -50,7 +50,7 @@
     <plugin.version.gpg>1.4</plugin.version.gpg>
     <plugin.version.release>2.5.3</plugin.version.release>
     <plugin.version.nexus-staging>1.6.8</plugin.version.nexus-staging>
-    <plugin.version.central-publishing>0.7.0</plugin.version.central-publishing>
+    <plugin.version.central-publishing>0.8.0</plugin.version.central-publishing>
   </properties>
 
   <build>
