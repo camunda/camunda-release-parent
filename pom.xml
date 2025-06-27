@@ -361,6 +361,7 @@
             </executions>
             <configuration>
               <autoPublish>false</autoPublish>
+              <checksums>required</checksums>
               <deploymentName>${deploymentName}</deploymentName>
               <failOnBuildFailure>true</failOnBuildFailure>
               <publishingServerId>${serverId}</publishingServerId>
