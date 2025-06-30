@@ -4,7 +4,7 @@
 
   <groupId>org.camunda</groupId>
   <artifactId>camunda-release-parent</artifactId>
-  <version>4.1.1-SNAPSHOT</version>
+  <version>4.1.1</version>
   <packaging>pom</packaging>
   <name>camunda - Release Parent Pom</name>
 
@@ -630,7 +630,7 @@ https://github.com/camunda/camunda-release-parent/tree/master?tab=readme-ov-file
     <url>https://github.com/camunda/camunda-release-parent</url>
     <connection>scm:git:git@github.com:camunda/camunda-release-parent.git</connection>
     <developerConnection>scm:git:git@github.com:camunda/camunda-release-parent.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>4.1.1</tag>
   </scm>
 
   <issueManagement>
