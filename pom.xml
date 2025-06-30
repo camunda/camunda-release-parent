@@ -162,7 +162,7 @@
               is set by default to the top-level module’s groupId, artifactId, and version.
               deploymentName is superseded if the central.sonatype.deployment.name property is set.
             -->
-            <arguments>${arguments} -Pcentral-sonatype-publish -DdeploymentName=${project.groupId}:${project.artifactId}:${project.version}</arguments>
+            <arguments>${arguments} -Pcentral-sonatype-publish -DdeploymentName=${project.groupId}:${project.artifactId}:${releaseVersion}</arguments>
           </configuration>
         </plugin>
         <plugin>
