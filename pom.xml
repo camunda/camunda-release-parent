@@ -50,7 +50,7 @@
     <plugin.version.gpg>1.4</plugin.version.gpg>
     <plugin.version.release>2.5.3</plugin.version.release>
     <plugin.version.nexus-staging>1.6.8</plugin.version.nexus-staging>
-    <plugin.version.central-publishing>0.7.0</plugin.version.central-publishing>
+    <plugin.version.central-publishing>0.8.0</plugin.version.central-publishing>
   </properties>
 
   <build>
@@ -157,7 +157,12 @@
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
             <useReleaseProfile>false</useReleaseProfile>
-            <arguments>${arguments} -Pcentral-sonatype-publish</arguments>
+            <!-- 
+              This ensures that the deployment name in the Sonatype Central Portal for projects using the maven-release-plugin 
+              is set by default to the top-level module’s groupId, artifactId, and version.
+              deploymentName is superseded if the central.sonatype.deployment.name property is set.
+            -->
+            <arguments>${arguments} -Pcentral-sonatype-publish -DdeploymentName=${project.groupId}:${project.artifactId}:${project.version}</arguments>
           </configuration>
         </plugin>
         <plugin>
@@ -288,8 +293,17 @@
       <id>central-sonatype-publish</id>
       <properties>
         <serverId>central</serverId>
-        <deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
-      </properties>  
+        <!-- 
+          deploymentName is redundant with central.sonatype.deployment.name but is kept for backward compatibility.
+          It is now only meant to be used in the arguments of the maven-release-plugin (currently appended by default, see configuration).  
+        -->
+        <deploymentName>Deployment</deploymentName>
+        <!-- 
+          If central.sonatype.deployment.name is set, it always takes precedence over deploymentName.
+          This is the property that child POMs inheriting from this POM should use to override the deployment name in the Sonatype Central Portal.
+        -->
+        <central.sonatype.deployment.name>${deploymentName}</central.sonatype.deployment.name>
+      </properties>      
       <build>
         <plugins>
           <plugin>
@@ -361,7 +375,8 @@
             </executions>
             <configuration>
               <autoPublish>false</autoPublish>
-              <deploymentName>${deploymentName}</deploymentName>
+              <checksums>required</checksums>
+              <deploymentName>${central.sonatype.deployment.name}</deploymentName>
               <failOnBuildFailure>true</failOnBuildFailure>
               <publishingServerId>${serverId}</publishingServerId>
               <skipPublishing>${skip.central.release}</skipPublishing>
