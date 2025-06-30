@@ -71,7 +71,7 @@
 > - 🚀 Publish to Maven Central
 > - ❌ Drop the Deployment/bundle if needed
 > 
-> **Note:** Along with the deployment ID, a `${deploymentName}` is set with default value: `${project.groupId}:${project.artifactId}:${project.version}`
+> **Note:** Along with the deployment ID, a deployment name is set by default to `Deployment`, unless the maven-release-plugin is used. In that case, the deployment name is automatically set to `${project.groupId}:${project.artifactId}:${project.version}` from the top-level project where the release is performed. Users can override the deployment name at any time by configuring the `central.sonatype.deployment.name` property in their top-level module.
 
 This POM is meant to be inherited in Camunda release builds and defines common release properties. It supports deploying artifacts to two repositories at the same time:
 
